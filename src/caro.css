@@ -1,0 +1,110 @@
+* {
+  letter-spacing: 1px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+button {
+  outline: none;
+}
+
+button.btn-matrix {
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+  cursor: pointer;
+}
+
+button.btn-matrix:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+input.block {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+p input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+}
+
+strong {
+  font-size: 20px;
+}
+
+.caro {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.rows button {
+  position: relative;
+  cursor: pointer;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  overflow: hidden;
+}
+
+.rows button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.rows button p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: auto;
+  -webkit-transform: translate(-50%, -55%);
+          transform: translate(-50%, -55%);
+}
+
+.prev {
+  background: #feca57;
+}
+
+.winX {
+  background: red;
+}
+
+.winO {
+  background: blue;
+}
+
+.player1 {
+  color: red;
+  font-size: 20px;
+  opacity: 0;
+}
+
+.player2 {
+  color: blue;
+  font-size: 20px;
+  opacity: 0;
+}
+
+.display {
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+  opacity: 1;
+}
+
+.footer {
+  height: 30px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 15px;
+}
+
+.footer button {
+  padding: 12px 15px;
+}
+/*# sourceMappingURL=caro.css.map */

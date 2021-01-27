@@ -1,18 +1,20 @@
 * {
    letter-spacing: 1px;
-   font-family: 'Lacquer', sans-serif;
+   font-family: 'Open Sans', sans-serif;
 }
 
 button {
    outline: none;
+
    &.btn-matrix {
       transition: all 0.1s ease-in;
       cursor: pointer;
+
       &:hover {
          transform: scale(1.1);
       }
    }
-    
+
 }
 
 input {
@@ -23,8 +25,8 @@ input {
    }
 }
 
-p{
-   input[type="checkbox"]{
+p {
+   input[type="checkbox"] {
       width: 20px;
       height: 20px;
       margin-left: 5px;
@@ -46,7 +48,8 @@ strong {
       cursor: pointer;
       transition: all 0.2s ease-in;
       overflow: hidden;
-      &:hover{
+
+      &:hover {
          transform: scale(1.1);
       }
 
@@ -61,27 +64,37 @@ strong {
    }
 }
 
-.prev{
-   background: #feca57;
+.prevX {
+   background: rgba($color: red, $alpha: .4);
 }
 
-.winX {
-   background: red;
+.prevY {
+   background: rgba($color: blue, $alpha: .4);
 }
 
-.winO {
-   background: blue;
+.player1-play {
+   color: red;
+   font-size: 20px;
+   font-weight: 600;
+}
+
+.player2-play {
+   color: blue;
+   font-size: 20px;
+   font-weight: 600;
 }
 
 .player1 {
    color: red;
-   font-size: 28px;
+   font-size: 20px;
+   font-weight: 600;
    opacity: 0;
 }
 
 .player2 {
    color: blue;
-   font-size: 28px;
+   font-size: 20px;
+   font-weight: 600;
    opacity: 0;
 }
 
@@ -94,7 +107,13 @@ strong {
    height: 30px;
    align-items: center;
    margin-top: 15px;
+
    button {
       padding: 12px 15px;
    }
+}
+
+*::selection {
+   background: pink;
+   color: #fff;
 }

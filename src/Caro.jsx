@@ -21,7 +21,6 @@ const init = {
       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
    ],
    player: true,
    isEnd: false,
@@ -43,7 +42,7 @@ class Caro extends Component {
          this.setState(JSON.parse(datas));
       }
       else {
-         this.setState(init)
+         this.setState(init);
       }
    }
 
@@ -132,14 +131,14 @@ class Caro extends Component {
                   this.setState({
                      winner: 'X',
                      isEnd: true,
-                  }); return;
+                  }); return "x";
                }
                else if (!this.checkRowBlock(i, 'O') && this.checkO(val[i][j], val[i][j + 1], val[i][j + 2], val[i][j + 3], val[i][j + 4])) {
                   this.setIndexsWinner(i, j, i, j + 1, i, j + 2, i, j + 3, i, j + 4);
                   this.setState({
                      winner: 'O',
                      isEnd: true,
-                  }); return;
+                  }); return "O";
                }
             }
 
@@ -150,14 +149,14 @@ class Caro extends Component {
                   this.setState({
                      winner: 'O',
                      isEnd: true
-                  }); return;
+                  }); return "O";
                }
                else if (!this.checkColBlock(j, 'X') && this.checkX(val[i][j], val[i + 1][j], val[i + 2][j], val[i + 3][j], val[i + 4][j])) {
                   this.setIndexsWinner(i, j, i + 1, j, i + 2, j, i + 3, j, i + 4, j);
                   this.setState({
                      winner: 'X',
                      isEnd: true
-                  }); return;
+                  }); return "X";
                }
 
                // check diagonal right
@@ -167,7 +166,7 @@ class Caro extends Component {
                      this.setState({
                         winner: 'X',
                         isEnd: true
-                     }); return;
+                     }); return "X";
                   }
                }
 
@@ -177,7 +176,7 @@ class Caro extends Component {
                      this.setState({
                         winner: 'O',
                         isEnd: true
-                     }); return;
+                     }); return "O";
                   }
                }
 
@@ -188,7 +187,7 @@ class Caro extends Component {
                      this.setState({
                         winner: 'O',
                         isEnd: true
-                     }); return;
+                     }); return "O";
                   }
                }
                if (j >= 4) {
@@ -197,12 +196,16 @@ class Caro extends Component {
                      this.setState({
                         winner: 'X',
                         isEnd: true
-                     }); return;
+                     }); return "X";
                   }
                }
             }
          }
       }
+   }
+
+   handleLocalStorage = () => {
+      localStorage.setItem('caro', JSON.stringify(this.state))
    }
 
    solve = () => {
@@ -217,6 +220,8 @@ class Caro extends Component {
                   this.setState({
                      winner: 'X',
                      isEnd: true
+                  }, () => {
+                     this.handleLocalStorage();
                   }); return;
                }
                else if (this.checkO(val[i][j], val[i][j + 1], val[i][j + 2], val[i][j + 3], val[i][j + 4])) {
@@ -224,6 +229,8 @@ class Caro extends Component {
                   this.setState({
                      winner: 'O',
                      isEnd: true
+                  }, () => {
+                     this.handleLocalStorage();
                   }); return;
                }
             }
@@ -235,6 +242,8 @@ class Caro extends Component {
                   this.setState({
                      winner: 'O',
                      isEnd: true
+                  }, () => {
+                     this.handleLocalStorage();
                   }); return;
                }
                else if (this.checkX(val[i][j], val[i + 1][j], val[i + 2][j], val[i + 3][j], val[i + 4][j])) {
@@ -242,6 +251,8 @@ class Caro extends Component {
                   this.setState({
                      winner: 'X',
                      isEnd: true
+                  }, () => {
+                     this.handleLocalStorage();
                   }); return;
                }
 
@@ -252,6 +263,8 @@ class Caro extends Component {
                      this.setState({
                         winner: 'O',
                         isEnd: true
+                     }, () => {
+                        this.handleLocalStorage();
                      }); return;
                   }
                   else if (this.checkX(val[i][j], val[i + 1][j + 1], val[i + 2][j + 2], val[i + 3][j + 3], val[i + 4][j + 4])) {
@@ -259,6 +272,8 @@ class Caro extends Component {
                      this.setState({
                         winner: 'X',
                         isEnd: true
+                     }, () => {
+                        this.handleLocalStorage();
                      }); return;
                   }
                }
@@ -270,6 +285,8 @@ class Caro extends Component {
                      this.setState({
                         winner: 'O',
                         isEnd: true
+                     }, () => {
+                        this.handleLocalStorage();
                      }); return;
                   }
                   else if (this.checkX(val[i][j], val[i + 1][j - 1], val[i + 2][j - 2], val[i + 3][j - 3], val[i + 4][j - 4])) {
@@ -277,6 +294,8 @@ class Caro extends Component {
                      this.setState({
                         winner: 'X',
                         isEnd: true
+                     }, () => {
+                        this.handleLocalStorage();
                      }); return;
                   }
                }
@@ -285,14 +304,14 @@ class Caro extends Component {
       }
    }
 
-
-   winner = async (row, col) => {
+   winner = (row, col) => {
       if (!this.state.isEnd) {
          const val = Array.from(this.state.matrix);
          let newArr = Array.from(val);
+
          if (val[row][col] === ' ') {
             val[row][col] = this.state.player ? 'X' : 'O';
-            await this.setState({
+            this.setState({
                matrix: newArr,
                player: !this.state.player,
                prevX: row,
@@ -305,7 +324,7 @@ class Caro extends Component {
       }
    }
 
-   handleRestart = async () => {
+   handleRestart = () => {
       let newArr = this.state.matrix;
       for (let i = 0; i < newArr.length; i++) {
          for (let j = 0; j < newArr[0].length; j++) {
@@ -326,6 +345,7 @@ class Caro extends Component {
 
    render() {
       const { matrix, player, winner, isBlock, prevX, prevY } = this.state;
+
       return (
          <div className='caro'>
             <div>
@@ -365,37 +385,28 @@ class Caro extends Component {
                                     }} onClick={() => this.winner(row, col)}>
                                        {
                                           val === 'X'
-                                             ? <p className={classnames({
-                                                'prev': (prevX === row && prevY === col && prevX !== -1)
-                                             })} style={{
-                                                color: 'red',
-                                                fontSize: '28px'
-                                             }}>{val}</p>
-                                             : <p className={classnames({
-                                                'prev': (prevX === row && prevY === col)
-                                             })} style={{
-                                                color: 'blue',
-                                                fontSize: '28px'
-                                             }}>{val}</p>
+                                             ? <p className={
+                                                classnames({
+                                                   'prevX': (prevX === row && prevY === col && prevX !== -1),
+                                                   'player1-play': true
+                                                })
+                                             }>{val}</p>
+
+                                             : <p className={
+                                                classnames({
+                                                   'prevY': (prevX === row && prevY === col),
+                                                   'player2-play': true
+                                                })
+                                             }>{val}</p>
                                        }
                                     </button>
-                                       : <button className='prev' style={{
+                                       : <button className={winner === 'X' ? 'prevX' : 'prevY'} style={{
                                           width: '30px',
                                           height: '30px',
                                           marginRight: '2px',
                                           marginBottom: '2px'
                                        }} >
-                                          {
-                                             winner === 'X'
-                                                ? <p style={{
-                                                   color: 'red',
-                                                   fontSize: '28px'
-                                                }}>{winner}</p>
-                                                : <p style={{
-                                                   color: 'blue',
-                                                   fontSize: '28px'
-                                                }}>{winner}</p>
-                                          }
+                                          <p className={winner === 'X' ? 'player1-play' : 'player2-play'}>{winner}</p>
                                        </button>
                                  }
                               </div>
@@ -423,4 +434,4 @@ class Caro extends Component {
    }
 }
 
-export default React.memo(Caro)
+export default Caro
